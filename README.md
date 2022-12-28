@@ -1,1 +1,1 @@
-<h1><div style="text-align: center;">📌 IN PROGRESS</div></h1>
+<h1 align="center">📌 IN PROGRESS</h1>
