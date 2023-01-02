@@ -8,7 +8,7 @@ public class HanoiTowerApplication {
   private static final String TOWER_INTERMEDIATE = "B";
   private static final String TOWER_TO = "C";
 
-  private static final int NUMBER_OF_DISKS = 3;
+  private static final int NUMBER_OF_DISKS = 12;
 
   public static void main(String[] args) {
     resolveTowers(NUMBER_OF_DISKS, TOWER_FROM, TOWER_INTERMEDIATE, TOWER_TO);
