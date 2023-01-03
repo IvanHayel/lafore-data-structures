@@ -28,7 +28,7 @@ public class ArrayQuick {
   }
 
   public void fillRandom() {
-    for(int i = 0; i < capacity; i++) insert(GENERATOR.nextInt(100));
+    for (int i = 0; i < capacity; i++) insert(GENERATOR.nextInt(100));
   }
 
   public void log() {
@@ -49,12 +49,64 @@ public class ArrayQuick {
     recursionQuickSort(partitionIndex + 1, right);
   }
 
+  public void medianQuickSort() {
+    recursionMedianQuickSort(0, size - 1);
+  }
+
+  private void recursionMedianQuickSort(int left, int right) {
+    if (right - left + 1 <= 3) manualSort(left, right);
+    else {
+      var median = medianOf(left, right);
+      int partitionIndex = medianPartition(left, right, median);
+      recursionMedianQuickSort(left, partitionIndex - 1);
+      recursionMedianQuickSort(partitionIndex + 1, right);
+    }
+  }
+
+  private int medianOf(int left, int right) {
+    var center = (left + right) >> 1;
+    if (array[left] > array[center]) swap(left, center);
+    if (array[left] > array[right]) swap(left, right);
+    if (array[center] > array[right]) swap(center, right);
+    swap(center, right - 1);
+    return array[right - 1];
+  }
+
+  private void manualSort(int left, int right) {
+    int size = right - left + 1;
+    if (size <= 1) return;
+    if (size == 2) {
+      if (array[left] > array[right]) swap(left, right);
+    } else {
+      if (array[left] > array[right - 1]) swap(left, right - 1);
+      if (array[left] > array[right]) swap(left, right);
+      if (array[left + 1] > array[right]) swap(left + 1, right);
+    }
+  }
+
+  private int medianPartition(int left, int right, int pivot) {
+    int leftPointer = left;
+    int rightPointer = right - 1;
+    while (true) {
+      while (array[++leftPointer] < pivot)
+        ;
+      while (array[--rightPointer] > pivot)
+        ;
+      if (leftPointer >= rightPointer) break;
+      swap(leftPointer, rightPointer);
+    }
+    swap(leftPointer, right - 1);
+    return leftPointer;
+  }
+
   private int partition(int left, int right, int pivot) {
     int leftPointer = left - 1;
     int rightPointer = right;
     while (true) {
-      while (array[++leftPointer] < pivot) ;
-      while (rightPointer > 0 && array[--rightPointer] > pivot) ;
+      while (array[++leftPointer] < pivot)
+        ;
+      while (rightPointer > 0 && array[--rightPointer] > pivot)
+        ;
       if (leftPointer >= rightPointer) break;
       swap(leftPointer, rightPointer);
     }
